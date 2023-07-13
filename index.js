@@ -4,7 +4,7 @@ const app=express();
 
 // use routers
 app.use("/",require('./routers'));
-app.set("views",'ejs');
+app.set('view engine','ejs');
 app.set('views','./views');
 // app.use('/users', require('./routers/user'));
 
