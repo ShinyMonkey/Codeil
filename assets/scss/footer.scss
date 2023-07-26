@@ -1,0 +1,25 @@
+body{
+    #footer-container{
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        background-color: darkgray;
+        p{
+            display: inline-block;
+            margin: 20px;
+            color: white;
+            font-weight: 600;
+        }
+        #links{
+            display: flex;
+            flex-direction: column;
+
+            a{
+                text-decoration: none;
+                color: white;
+            }
+
+        }
+       
+    }
+}

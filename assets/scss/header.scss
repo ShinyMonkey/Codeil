@@ -1,0 +1,28 @@
+body{
+
+    #header-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 15vh;
+    padding: 0px 10px 0px 10px;
+    background-color: cadetblue;
+    ul{
+        list-style: none;
+        li{
+            display: inline-block;
+            a{
+                text-decoration: none;
+                font-weight: 600;
+                color: white;
+            }
+        }
+    }
+    #name{
+        width: 20%;
+        font-weight: bold;
+        color: white;
+        
+    }
+    }
+}

@@ -1,4 +1,11 @@
 
-        <h1>
-            Codeil/<%=header%>
-        </h1>
+<h1>
+    Codeil/<%=header%>
+</h1>
+
+<section id="feed-section">
+    <form action="/posts/create-post" id="new-post-form" method="post">
+        <textarea name="content" cols="30" rows="3" placeholder="Type here..."></textarea>
+        <input type="submit" value="Post">
+    </form>
+</section>
