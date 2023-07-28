@@ -18,3 +18,18 @@ module.exports.create=function(req,res){
         }
     })
 }
+
+
+module.exports.distroyComment=function(req,res){
+    Comment.findById(req.params.id).exec().then(function(comment){
+        if(comment.user==req.user.id){
+            comment.deleteOne()
+            .then(function(err){
+                return res.redirect('back');
+            })
+        }else{
+            return res.redirect('back');
+        }
+    })
+    
+}
