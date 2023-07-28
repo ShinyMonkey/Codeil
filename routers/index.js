@@ -7,7 +7,7 @@ const homeController=require('../controllers/home_controller');
 router.get('/',homeController.home);
 router.use('/users',require('./user'));
 router.use('/posts',require('./post'));
-// router.use('/users',require('./user'));
+router.use('/comment',require('./comments'));
 // router.use('./users',require('./user'));
 
 
