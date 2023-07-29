@@ -1,11 +1,22 @@
 const User=require('../models/user');
 const passport=require("passport");
+
 module.exports.profile=function(req,res){
-    res.render("user_profile",{
-        title:'Codel_profile',
-        header:'Profile',
-    });
+    User.findById(req.params.id).then(function(user){
+        return res.render('user_profile',{
+            title:'Codel_profile',
+            header:'COdeil Profile',
+            profile_user:user,
+        })
+    })
 }
+
+// module.exports.profile=function(req,res){
+//     res.render("user_profile",{
+//         title:'Codel_profile',
+//         header:'Profile',
+//     });
+// }
 
 module.exports.signin=function(req,res){
     if(req.isAuthenticated()){

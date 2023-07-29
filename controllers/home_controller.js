@@ -1,4 +1,5 @@
-const Post=require('../models/post')
+const Post=require('../models/post');
+const User=require("../models/user");
 module.exports.home=function(req,res){
     // res.end("<h1>Express is up for Codeil</h1>")
     // if(req.isAuthenticated()){
@@ -13,11 +14,15 @@ module.exports.home=function(req,res){
         }
     })
     .exec().then(function(posts){
-        return res.render('home',{
-            title:'Codel',
-            header:'header',
-            posts:posts,
+        User.find({}).exec().then(function(user){
+            return res.render('home',{
+                title:'Codel',
+                header:'header',
+                posts:posts,
+                user_list:user,
+            })
         })
+        
         
     })
     
