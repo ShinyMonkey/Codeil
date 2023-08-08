@@ -2,6 +2,7 @@ const express=require('express');
 const session=require('express-session');
 const passport=require('passport');
 const passportLocal=require('./config/passport-local-strategy');
+
 const port=8000;
 const app=express();
 const expressLayouts=require('express-ejs-layouts');
@@ -9,12 +10,16 @@ const db=require('./config/mongoose');
 // const MongoStore=require('connect-mongo')(session);
 const { default: mongoose } = require('mongoose');
 const MongoStore = require('connect-mongo');
+const flash=require('connect-flash');
+const customMware=require('./config/middleware');
+
 
 
 
 
 app.use(express.urlencoded());
 app.use(expressLayouts);
+app.use('/uploads', express.static(__dirname+'/uploads'));
 app.use(express.static('./assets'))
 
 
@@ -45,7 +50,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(passport.setAuthenticateUser);
-
+app.use(flash());
+app.use(customMware.setflash);
 // use routers
 app.use("/",require('./routers'));
 app.set('view engine','ejs');
@@ -57,5 +63,6 @@ app.listen(port,function(err){
         console.log(`Server Error ${err}`);
         return;
     }
+    console.log(__dirname+'/uploads');
     console.log('Server is running',port);
 })

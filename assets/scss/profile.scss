@@ -1,0 +1,17 @@
+body{
+    form{
+        margin-bottom: 20px;
+    }
+    #preview-container{
+        width: 250px;
+        height: 250px;
+        margin: auto;
+        visibility: hidden;
+        
+        
+        img{
+            width: inherit;
+            height: inherit;
+        }
+    }
+}

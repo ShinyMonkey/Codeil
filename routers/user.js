@@ -12,7 +12,7 @@ router.get('/signin',userController.signin);
 
 router.post('/create',userController.create);
 
-router.post('/create-session',passport.authenticate('local',{failureRedirect: '/users/signin'}),userController.creatSessions)
+router.post('/create-session',passport.authenticate('local',{failureRedirect: '/users/signup'}),userController.creatSessions)
 
 router.get('/sign-out',userController.deleteSession);
 

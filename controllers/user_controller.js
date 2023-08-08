@@ -1,5 +1,8 @@
 const User=require('../models/user');
 const passport=require("passport");
+const fs=require('fs');
+const path=require('path');
+
 
 module.exports.profile=async function(req,res){
     try {
@@ -13,14 +16,31 @@ module.exports.profile=async function(req,res){
         console.log('Error',error);
         return;
     }
+    
    
 }
 
 module.exports.update= async function(req,res){
     try {
         if(req.user.id==req.params.id){
-            await User.findByIdAndUpdate(req.params.id,req.body)
+            let user=await User.findById(req.params.id)
+            User.uploadAvatar(req,res,function(err){
+                if(err){console.log("******Multer Error********",err)};
+                user.name=req.body.name;
+                user.email=req.body.email;
+                if(req.file){
+                    // let f=user.avatar
+                    if(user.avatar ){
+                        fs.unlinkSync(path.join(__dirname,'..',user.avatar));
+                    }
+                    user.avatar=User.avatarPath + '/'+ req.file.filename;
+                }
+                // console.log(user);
+                // console.log(req.file);
+                user.save();
                 return res.redirect('back');
+            })
+                // return res.redirect('back');
         }else{
             res.status(404).send("Anauthorized Access")
         }
@@ -28,6 +48,17 @@ module.exports.update= async function(req,res){
         console.log('Error',error);
         return;
     }
+    // try {
+    //     if(req.user.id==req.params.id){
+    //         await User.findByIdAndUpdate(req.params.id,req.body)
+    //             return res.redirect('back');
+    //     }else{
+    //         res.status(404).send("Anauthorized Access")
+    //     }
+    // } catch (error) {
+    //     console.log('Error',error);
+    //     return;
+    // }
     
     // res.render("user_profile",{
     //     title:'Codel_profile',
@@ -93,17 +124,23 @@ module.exports.creatSessions=function(req,res){
     //         return res.redirect('back');
     //     }
     // })
+    req.flash('success','You Loged-in Successfully');
     return res.redirect('/');
 }
 
 
 module.exports.deleteSession=function(req,res){
     req.logout(function(err){
-        if (err) { return next(err);}
-        console.log(err);
-        return;
+        if (err) { return next(err);
+        }else{
+            req.flash('success','You Loged-out Successfully');
+            return res.redirect('/');
+        }
+        // console.log(err);
+        
     });
-    return res.redirect('/');
+    
+    
 }
 
 
