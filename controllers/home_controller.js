@@ -35,7 +35,7 @@ module.exports.home=async function(req,res){
             path:'user',
         }
     })
-        let user=await User.find({});
+        let user=await User.find({}).select('-password');
 
         return res.render('home',{
             title:'Codel',

@@ -2,7 +2,8 @@ const express=require('express');
 const session=require('express-session');
 const passport=require('passport');
 const passportLocal=require('./config/passport-local-strategy');
-
+const passportJwt=require('./config/passport-jwt-strategy');
+const passportGoogle=require('./config/passport-googleoauth2-strategy');
 const port=8000;
 const app=express();
 const expressLayouts=require('express-ejs-layouts');

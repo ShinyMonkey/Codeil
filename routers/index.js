@@ -9,7 +9,7 @@ router.use('/users',require('./user'));
 router.use('/posts',require('./post'));
 router.use('/comment',require('./comments'));
 // router.use('./users',require('./user'));
-
+router.use('/api',require('./api'))
 
 console.log('Router Active')
 module.exports=router;
