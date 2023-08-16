@@ -64,7 +64,7 @@ class PostComments{
     deleteComment(deleteLink){
         console.log(deleteLink);
         console.log($(deleteLink).prop('href'));
-        $(deleteLink).on('click',function(e){
+        $(deleteLink).click(function(e){
            console.log($(deleteLink).prop('href'));
             e.preventDefault();
             // console.log(deleteLink);
@@ -73,7 +73,7 @@ class PostComments{
                 url: $(deleteLink).prop('href'),
                 success:function(data){
                     console.log(data);
-                    // $(`#comment-${data.data.comment_id}`).remove();
+                    $(`#comment-${data.data.comment_id}`).remove();
                     // console.log('*');
                     
                 },

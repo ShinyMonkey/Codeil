@@ -1,6 +1,7 @@
 const Comment=require('../models/comment');
 const Post=require('../models/post')
-
+const mailer=require('../mailer/comments_mailer');
+// const queue=require('../config/keu');
 
 module.exports.create=async function(req,res){
     try {
@@ -11,13 +12,22 @@ module.exports.create=async function(req,res){
                 user:req.user._id,
                 post:req.body.post
             });
-            
+            post.comments.push(comment);
+                post.save();
             
                 // console.log(comment.content);
-                post.comments.push(comment);
-                post.save();
+                comment=await comment.populate('user', 'name email');
+                mailer.newComment(comment);
+                // let job=queue.create('emails',comment).save(function(err){
+                //     if(err){
+                //         console.log("Error while creating a job", err);
+                //         return;
+                //     }
+
+                //     console.log(job.id);
+                // })
                 if(req.xhr){
-                    comment=await comment.populate('user', 'name');
+                    
                     return res.status(200).json({
                         data:{
                             comment:comment,
@@ -25,6 +35,7 @@ module.exports.create=async function(req,res){
                         message: 'Comment Created',
                     });
                 }
+                
                 // post.comment.sort('-createdAt');
                 req.flash('success','Comment Added Successfully')
                 res.redirect('/');
