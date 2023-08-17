@@ -2,7 +2,9 @@ const User=require('../models/user');
 const passport=require("passport");
 const fs=require('fs');
 const path=require('path');
-
+const Reset=require('../models/forget_passpowrd_tokem');
+const mailer=require('../mailer/access_token_mailer');
+const crypto=require('crypto');
 
 module.exports.profile=async function(req,res){
     try {
@@ -141,6 +143,87 @@ module.exports.deleteSession=function(req,res){
     });
     
     
+};
+
+
+module.exports.forget=function(req,res){
+    return res.render('forget',{
+        title: "Reset Password",
+    })
 }
 
 
+module.exports.findmail=async function(req,res){
+    try {
+        let user=await User.findOne({email:req.body.email});
+        if(user){
+            let reset=await Reset.create({
+                accesstoken: crypto.randomBytes(20).toString('hex'),
+                is_valid:true,
+                user:user._id,
+            });
+            console.log(reset);
+            reset=await reset.populate('user','email');
+            mailer.newAccessToken(reset);
+            return res.redirect('back');
+        }else{
+            // return res.redirect('back');
+        }
+        
+
+    } catch (error) {
+        console.log('Error',error);
+        return;
+    }
+    
+}
+
+module.exports.resetPasswordPage=async function(req,res){
+    try {
+        let reset=await Reset.findOne({accesstoken:req.params.accessToken})
+    if(reset){
+        // console.log(reset);
+        return res.render('reset-pasword',{
+            title:"Title-Reset page",
+            reset:reset,
+        })
+    }else{
+        return res.redirect('back');
+    }
+    } catch (error) {
+        console.log('Error',error);
+        return;
+    }
+    
+    
+}
+
+
+
+module.exports.resetPassword=async function(req,res){
+    try {
+        if(req.body.password == req.body.confermPassword){
+            let reset= await Reset.findOne({accesstoken:req.params.accessToken});
+            if(reset.is_valid){
+                let user= await User.findById(reset.user._id);
+                if(user){
+                    user.password=req.body.password;
+                    user.save();
+                }
+                reset.is_valid=false;
+                reset.save();
+                return res.redirect('/');
+            }else{
+                console.log('Token expired');
+                return res.redirect('back')
+            }
+        }else{
+            console.log('password-mismatch')
+            return res.redirect('back')
+        }
+        
+    } catch (error) {
+        console.log('Error',error);
+        return;
+    }
+}
