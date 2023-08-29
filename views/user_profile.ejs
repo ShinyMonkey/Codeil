@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="/css/user_layout.css">
-<link rel="stylesheet" href="/css/profile.css">
+<link rel="stylesheet" href="<%=assetPath('css/user_layout.css') %>">
+<link rel="stylesheet" href="<%=assetPath('css/profile.css') %>">
         <h1>
             Codeil/<%=header%>
         </h1>
@@ -20,5 +20,21 @@
             <%}else{%>
                 <p>Name= <%= profile_user.name%></p>
                 <p>Email= <%= profile_user.email%></p>
-                <%}%>
 
+
+
+                <%if(user.friends.length>0){%>
+                    <%for(friend of friends){%>
+                        <%if(friend.to_user.id == profile_user.id || friend.from_user.id == profile_user.id ){%>
+                            <a id="toggle-button" href="/friends/addfriend/<%=profile_user._id%>/<%=user._id%>">Remove-friend</a> 
+                        <%}else{%>
+                            <a id="toggle-button" href="/friends/addfriend/<%=profile_user._id%>/<%=user._id%>">Add-friend</a>
+                        <%}%>
+                    <%}%>
+                <%}else{%>
+                    <a id="toggle-button" href="/friends/addfriend/<%=profile_user._id%>/<%=user._id%>">Add-friend</a>
+                <%}%>
+                <!-- <a id="toggle-button" href="/friends/addfriend/<%=profile_user._id%>/<%=user._id%>">Remove Friend/Add-friend</a> -->
+                
+                <%}%>
+<script src="<%=assetPath('js/profile_friends.js') %>"></script>

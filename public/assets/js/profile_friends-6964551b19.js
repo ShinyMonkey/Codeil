@@ -1,0 +1,1 @@
+$(" #toggle-button").click((function(t){t.preventDefault(),console.log($(" #toggle-button").attr("href")),$.ajax({type:"GET",url:$(" #toggle-button").attr("href")}).done((function(t){console.log(t),0==t.data.areFriends?$(" #toggle-button").html("Add-friend"):$(" #toggle-button").html("Remove-friend")})).fail((function(t){console.log("error in completing the request",t)}))}));

@@ -35,7 +35,7 @@ class PostComments{
                     $(`#post-comments-${postId}`).prepend(newCommentFormed);
                     
                     Pself.deleteComment($(' .delete-comment-button',newCommentFormed));
-                    console.log($(' .delete-comment-button',newCommentFormed));
+                    new Toggle($(' .toggle-like-button', newCommentFormed));
                     
                 },
                 error:function(error){
@@ -52,6 +52,9 @@ class PostComments{
         ${comment.content}
         <br>
         <small>${comment.user.name}</small>
+        <small>
+        <a class="toggle-like-button" data-likes="0" href="/likes/toggle/${comment._id}/Comment">0 Likes</a>
+        </small>
         <p>
             
                 <a class="delete-comment-button" href="/comment/distroy/${comment._id}">x</a>

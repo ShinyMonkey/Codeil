@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="<%=assetPath('css/home.css') %>">
 <h1>
     Codeil/<%=header%>
 </h1>
@@ -25,16 +25,53 @@
     </section>
     
     <section id="user-friend">
-        <h4>Friends</h4>
+        <%if(locals.user){%>
+            <div>
+                <h4>Friends</h4>
+                <%for(friend of friends){%>
+                    <%if(friend.from_user.id == user.id){%>
+                        <p><%=(friend.to_user.name)%></p>
+                    <%}else if(friend.to_user.id == user.id){%>
+                        <p><%=friend.from_user.name%></p>
+                        <%}%>
+                <%}%>
+            </div>
+            <%}%>
+        <h4>Users</h4>
         <%for(u of user_list){%>
         <p>
             <a href="/users/profile/<%=u.id%>"><%=u.name%></a>
         </p>
         <%}%>
+        
     </section>
+    <%if(locals.user){%>
+        <%- include('chat_box')%>
+    <%}%>
+    
 </div>
-<script src="/js/home_comment.js"></script>
-<script src="/js/home_post.js"></script>
+<script src="<%=assetPath('js/home_comment.js') %>"></script>
+<script src="<%=assetPath('js/home_post.js') %>"></script>
+
+<!-- for toggle likes -->
+<script src="<%=assetPath('js/home_likes.js') %>"></script>
+
+<script>
+    $(' .toggle-like-button').each(function(){
+        let self=this;
+        let togglelike= new Toggle(self);
+    })
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js" integrity="sha512-zoJXRvW2gC8Z0Xo3lBbao5+AS3g6YWr5ztKqaicua11xHo+AvE1b0lT9ODgrHTmNUxeCw0Ry4BGRYZfXu70weg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script> -->
+
+<script src="<%=assetPath('js/chat_engine.js') %>"></script>
+<%if(locals.user){%>
+    <script>
+        new ChatEngine('chatBox','<%=locals.user.email%>')
+    </script>
+    <%}%>
+
 
 
 

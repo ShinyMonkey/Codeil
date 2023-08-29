@@ -1,0 +1,20 @@
+body #footer-container {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  background-color: darkgray;
+}
+body #footer-container p {
+  display: inline-block;
+  margin: 20px;
+  color: white;
+  font-weight: 600;
+}
+body #footer-container #links {
+  display: flex;
+  flex-direction: column;
+}
+body #footer-container #links a {
+  text-decoration: none;
+  color: white;
+}

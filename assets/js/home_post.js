@@ -19,6 +19,7 @@
 
                     new PostComments(data.data.post._id);
 
+                    new Toggle($(' .toggle-like-button', newformdata));
                     new Noty({
                         theme: 'relax',
                         text: "Post published!",
@@ -51,6 +52,9 @@
             <small>
             ${post.user.name}
             </small>
+            <small>
+                <a class="toggle-like-button" data-likes="0" href="/likes/toggle/${post._id}/Post">0 Likes</a>
+            </small>
         </p>
         <div class="comment-feed">
                 <form action="/comment/create" method="post" id="post-${post._id }-comments-form">
@@ -65,8 +69,7 @@
                     </ul>
                  </div>
         </div>
-    </li>
-    `)
+    </li>`)
     }
 
 

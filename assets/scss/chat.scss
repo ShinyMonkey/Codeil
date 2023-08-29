@@ -1,0 +1,53 @@
+body{
+    #chatBox{
+        position: fixed;
+        right: 0; bottom: 0;
+        width: 250px;
+        height: 300px;
+        border: 1px solid lightgray;
+        background-color: white;
+        
+        
+        
+            ul{
+                list-style: none;
+                padding: 0;
+                height: 85%;
+                overflow: auto;
+                li{
+                    width: 95px;
+                    height: 30px;
+                    margin: 5px;
+                    padding: 9px;
+                    span{
+                        text-align: center;
+                    }
+                    sub{
+                        display: block;
+                        font-size: 10px;
+                    }
+                }
+
+                .others {
+                 background-color: lightcoral; 
+                 width: 49%;
+                   
+                }
+                .self{
+                    margin-left: 100px;
+                    background-color: aquamarine;
+                    width: 49%;
+                }
+            }
+            #chat-message-input-container{
+                width: inherit;
+                padding-left: 10px;
+                position: fixed;
+                bottom: 5px;
+                #send-message{
+                    background-color: lightgreen;
+                }
+            }
+        }
+        
+    }

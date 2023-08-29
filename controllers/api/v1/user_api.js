@@ -1,6 +1,6 @@
 const jwt=require('jsonwebtoken');
 const User=require('../../../models/user');
-
+const env= require('../../../config/environment');
 
 module.exports.creatSessions= async function(req,res){
     try {
@@ -13,7 +13,7 @@ module.exports.creatSessions= async function(req,res){
     return res.json(200,{
         message:" Sing-in Succesfull",
         data:{
-            token: jwt.sign(user.toJSON(),'Codeil',{
+            token: jwt.sign(user.toJSON(),env.jwt_key,{
                 expiresIn: '100000',
             })
         }

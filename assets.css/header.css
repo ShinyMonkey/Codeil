@@ -1,0 +1,1 @@
+body #header-container{display:flex;justify-content:space-between;align-items:center;height:15vh;padding:0 10px;background-color:#5f9ea0}body #header-container ul{list-style:none}body #header-container ul li{display:inline-block}body #header-container ul li a{text-decoration:none;font-weight:600;color:#fff}body #header-container #name{width:20%;font-weight:700;color:#fff}

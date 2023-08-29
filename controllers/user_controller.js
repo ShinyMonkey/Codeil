@@ -5,14 +5,17 @@ const path=require('path');
 const Reset=require('../models/forget_passpowrd_tokem');
 const mailer=require('../mailer/access_token_mailer');
 const crypto=require('crypto');
+const Friends=require('../models/friendships');
 
 module.exports.profile=async function(req,res){
     try {
-        let user=await User.findById(req.params.id);
+        let user=await User.findById(req.params.id).populate('friends');
+        let friends= await Friends.find({}).populate('from_user to_user');
         return res.render('user_profile',{
             title:'Codel_profile',
             header:'COdeil Profile',
             profile_user:user,
+            friends:friends,
         })
     } catch (error) {
         console.log('Error',error);

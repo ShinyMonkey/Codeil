@@ -1,5 +1,6 @@
 const Post=require('../models/post');
 const Comment=require('../models/comment');
+const Like=require('../models/likes');
 
 module.exports.creatPost=async function(req,res){
     // console.log(req.body.content)
@@ -43,7 +44,13 @@ module.exports.distroyComment=async function(req,res){
     try {
         let post=await Post.findById(req.params.id);
         console.log(req.params.id)
+        // console.log(post);
         if(post.user==req.user.id){
+            await Like.deleteMany({likeable:post._id, onModel:'Post'});
+            await Like.deleteMany({likeable:{$in:post.comments}});
+            // await Like.deleteMany({_id: {$in: post.comments}});
+            // console.log(o, "uhwei");
+
             post.deleteOne();
             await Comment.deleteMany({post:req.params.id});
 
@@ -69,7 +76,7 @@ module.exports.distroyComment=async function(req,res){
             return res.redirect('back');
         }
     } catch (error) {
-        req.flash('error', err);
+        req.flash('error', error);
         return res.redirect('back');
     }
     

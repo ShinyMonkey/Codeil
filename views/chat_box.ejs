@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="<%=assetPath('css/chat.css')%>">
+<div id="chatBox">
+        <ul id="chatter">
+            <li class="others">
+                <span>
+                    other message
+                </span>
+            </li>
+            <li class="self">
+                <span>
+                    self message
+                </span>
+            </li>
+        </ul>
+    <!-- <form action="">
+        <input type="text" name="chat" id="chat" placeholder="Type message here">
+        <button class="chat-button">Send</button>
+    </form> -->
+    <div id="chat-message-input-container">
+        <input id="chat-message-input" placeholder="Type message here">
+        <button id="send-message">Send</button>
+    </div>
+
+</div>
+
+<script>
+     function scroll(){
+        let obj = document.getElementById('chatter');
+        console.log(obj.scrollHeight)
+        obj.scrollTop=obj.scrollHeight;
+
+    }
+
+    function scroll()
+</script>

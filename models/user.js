@@ -20,7 +20,15 @@ const userSchema=mongoose.Schema({
     },
     avatar:{
         type:String,
-    }
+    },
+    likes:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Like',
+    }],
+    friends:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Friendships'
+    }]
 },{
     timestamps:true,
 });

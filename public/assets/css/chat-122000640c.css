@@ -1,0 +1,46 @@
+body #chatBox {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 250px;
+  height: 300px;
+  border: 1px solid lightgray;
+  background-color: white;
+}
+body #chatBox ul {
+  list-style: none;
+  padding: 0;
+  height: 85%;
+  overflow: auto;
+}
+body #chatBox ul li {
+  width: 95px;
+  height: 30px;
+  margin: 5px;
+  padding: 9px;
+}
+body #chatBox ul li span {
+  text-align: center;
+}
+body #chatBox ul li sub {
+  display: block;
+  font-size: 10px;
+}
+body #chatBox ul .others {
+  background-color: lightcoral;
+  width: 49%;
+}
+body #chatBox ul .self {
+  margin-left: 100px;
+  background-color: aquamarine;
+  width: 49%;
+}
+body #chatBox #chat-message-input-container {
+  width: inherit;
+  padding-left: 10px;
+  position: fixed;
+  bottom: 5px;
+}
+body #chatBox #chat-message-input-container #send-message {
+  background-color: lightgreen;
+}
