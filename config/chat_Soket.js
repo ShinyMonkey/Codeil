@@ -2,7 +2,7 @@ const Chats=require('../models/chats');
 module.exports.chatSocket=function(socketServer){
     let io=require('socket.io')(socketServer,{
         cors: {
-            origin:'http://52.204.188.90/:8000',
+            origin:'http://52.204.188.90:8000',
           },
     });
     io.sockets.on('connection', function(socket){
